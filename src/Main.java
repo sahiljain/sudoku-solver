@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Main {
 
+    static Random rand = new Random();
+
     public static void main(String[] args) {
 //        int[][] emptyBoard = {
 //                {8,0,1,5,0,0,0,0,0},
@@ -35,6 +37,8 @@ public class Main {
         int[][] currentGuess = mutate(mutate(getGuess(emptyBoard), emptyBoard), emptyBoard);
         int currentCost = cost(currentGuess);
 
+        printArr(emptyBoard);
+
         double temp = 0.5;
         int numIter = 0;
 
@@ -47,17 +51,22 @@ public class Main {
                 currentGuess = nextGuess;
             } else {
                 double acceptanceProb = Math.exp(-costIncrease/temp);
-                if (Math.random() < acceptanceProb) {
+                if (rand.nextDouble() < acceptanceProb) {
                     currentCost = nextCost;
                     currentGuess = nextGuess;
                 }
             }
-            if (numIter % 100 == 0 && temp > 0.001) {
-                temp -= 0.0001;
+            if (numIter % 1000 == 0) {
+                if (temp > 0.001) {
+                    temp *= 0.999;
+                } else {
+                    System.out.println("Could not find solution.");
+                    break;
+                }
 
             }
             numIter++;
-            if (numIter % 1000 == 0) {
+            if (numIter % 10000 == 0) {
                 System.out.println(numIter + ",\t" + currentCost + ",\t " + temp);
             }
         }
@@ -69,7 +78,6 @@ public class Main {
 
     private static int[][] mutate(int[][] guess, int[][] emptyBoard) {
         // pick a random 3x3 block
-        Random rand = new Random();
         int blockI = rand.nextInt(3)*3;
         int blockJ = rand.nextInt(3)*3;
 
