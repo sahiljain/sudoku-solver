@@ -5,16 +5,27 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
+//        int[][] emptyBoard = {
+//                {8,0,1,5,0,0,0,0,0},
+//                {0,0,0,9,0,0,1,2,0},
+//                {0,0,0,0,8,0,0,0,4},
+//                {0,0,4,0,0,1,0,7,0},
+//                {0,1,0,0,5,0,0,9,0},
+//                {0,6,0,2,0,0,3,0,0},
+//                {9,0,0,0,6,0,0,0,0},
+//                {0,7,3,0,0,8,0,0,0},
+//                {0,0,0,0,0,5,9,0,3}
+//        };
         int[][] emptyBoard = {
-                {8,0,1,5,0,0,0,0,0},
-                {0,0,0,9,0,0,1,2,0},
-                {0,0,0,0,8,0,0,0,4},
-                {0,0,4,0,0,1,0,7,0},
-                {0,1,0,0,5,0,0,9,0},
-                {0,6,0,2,0,0,3,0,0},
-                {9,0,0,0,6,0,0,0,0},
-                {0,7,3,0,0,8,0,0,0},
-                {0,0,0,0,0,5,9,0,3}
+            {1,0,0,0,0,6,5,0,0},
+            {2,0,0,0,0,4,6,0,8},
+            {0,0,0,0,8,0,0,0,1},
+            {0,2,4,0,1,0,0,0,0},
+            {0,0,0,8,0,3,0,0,0},
+            {0,0,0,0,7,0,1,3,0},
+            {8,0,0,0,9,0,0,0,0},
+            {6,0,9,5,0,0,0,0,7},
+            {0,0,7,2,0,0,0,0,5}
         };
         printSolved(emptyBoard);
     }
@@ -24,7 +35,7 @@ public class Main {
         int[][] currentGuess = mutate(mutate(getGuess(emptyBoard), emptyBoard), emptyBoard);
         int currentCost = cost(currentGuess);
 
-        double temp = 1.0;
+        double temp = 0.5;
         int numIter = 0;
 
         while (currentCost > 0) {
@@ -46,8 +57,8 @@ public class Main {
 
             }
             numIter++;
-            if (numIter % 100000 == 0) {
-                System.out.println(currentCost + ",\t" + temp);
+            if (numIter % 1000 == 0) {
+                System.out.println(numIter + ",\t" + currentCost + ",\t " + temp);
             }
         }
 
